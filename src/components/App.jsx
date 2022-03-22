@@ -2,12 +2,15 @@ import React, { useState } from "react";
 
 function App() {
          //variable    //method         //state 
-  const [headingText, setHeadingText] = useState("Hello");
-  const [isMousedOver, setMouseOver] = useState(false); //start
+  const [headingText, setHeadingText] = useState("Hello, ");
+  const [isMousedOver, setMouseOver] = useState(false); //enter in page
+        //name
+  const [name, setName] = useState("")
 
-  function handleClick() {
-    setHeadingText("Submitted");
-  }
+
+
+
+
 
   function handleMouseOver() {
     setMouseOver(true);
@@ -17,18 +20,34 @@ function App() {
     setMouseOver(false);
   }
 
+  function handleChange(event){
+    console.log(event.target.value);
+    setName(event.target.value); //input name
+  }
+  
+  function handleClick(event) {
+    setHeadingText("Hello, "+name);
+
+    event.preventDefault(); //onClick gonna be the page refreshed
+  }
+
+
+
   return (
     <div className="container">
       <h1>{headingText}</h1>
-      <input type="text" placeholder="What's your name?" />
-      <button
-        style={{ backgroundColor: isMousedOver ? "black" : "white" }}
-        onClick={handleClick}
-        onMouseOver={handleMouseOver}
-        onMouseOut={handleMouseOut}
-      >
-        Submit
-      </button>
+      {/* onClick={} */}
+      <form onSubmit={handleClick}>
+      
+      <input onChange={handleChange} type="text" placeholder="What's your name?" value={name}/>
+        
+        <button type="submit"
+                style={{ backgroundColor: isMousedOver ? "black" : "white" }}
+                onMouseOver={handleMouseOver}
+                onMouseOut={handleMouseOut}
+                value={name}
+        >Submit</button>
+      </form>      
     </div>
   );
 }
